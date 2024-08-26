@@ -4,9 +4,6 @@ This is a NFT Marketplace powered by Generative AI for creating NFT assets using
 
 
 
-https://github.com/user-attachments/assets/79923f0a-3a58-43a0-b217-c884c5da3007
-
-
 ## Technologies Used
 
 -Frontend
@@ -43,16 +40,4 @@ npm install
 npm run dev
 ```
 
-### Setup pnpm (optional)
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [Simba](https://t.me/xcrypto1112).

@@ -122,6 +122,7 @@ export default function Component() {
               startContent={<Icon icon="flat-color-icons:google" width={24} />}
               variant="bordered"
               onClick={() => {
+                console.log("google sign in");
                 signIn("google", {
                   callbackUrl: "http://localhost:3000/explore",
                 });

@@ -61,7 +61,7 @@ const Explorer = () => {
             >
               <BreadcrumbItem>Home</BreadcrumbItem>
               <BreadcrumbItem onClick={() => setSelectedNFT(-1)}>
-                NFT EXPLORE
+                POLICY EXPLORE
               </BreadcrumbItem>
               {selectedNFT !== -1 && (
                 <BreadcrumbItem>
@@ -70,7 +70,7 @@ const Explorer = () => {
               )}
             </Breadcrumbs>
           </span>
-          <Switch defaultSelected color="secondary">
+          <Switch defaultSelected color="primary">
             <span>Buy Now</span>
           </Switch>
         </div>
@@ -92,92 +92,19 @@ const Explorer = () => {
                 />
               }
             />
-            <div className="svg-container flex flex-wrap lg:flex-nowrap gap-2 font-medium">
-              <span
-                className={`${selectedItem == 0 ? "text-light-blue" : ""} item`}
-                role="button"
-                tabIndex={0}
-                onClick={() => setSelectedItem(0)}
-              >
-                <FeaturedIcon
-                  className={
-                    selectedItem == 0 ? "fill-light-blue" : "fill-white"
-                  }
-                />
-                Featured
-              </span>
-              <span
-                className={`${selectedItem == 1 ? "text-light-blue" : ""} item`}
-                role="button"
-                tabIndex={0}
-                onClick={() => setSelectedItem(1)}
-              >
-                <PFPIcon
-                  className={
-                    selectedItem == 1 ? "fill-light-blue" : "fill-white"
-                  }
-                />
-                PFP
-              </span>
-              <span
-                className={`${
-                  selectedItem == 2 ? "text-light-blueeee" : ""
-                } item`}
-                role="button"
-                tabIndex={0}
-                onClick={() => setSelectedItem(2)}
-              >
-                <VideoIcon
-                  className={
-                    selectedItem == 2 ? "fill-light-blue" : "fill-white"
-                  }
-                />
-                Video
-              </span>
-              <span
-                className={`${selectedItem == 3 ? "text-light-blue" : ""} item`}
-                role="button"
-                tabIndex={0}
-                onClick={() => setSelectedItem(3)}
-              >
-                <MusicIcon
-                  className={
-                    selectedItem == 3 ? "fill-light-blue" : "fill-white"
-                  }
-                />
-                Music
-              </span>
-              <span
-                className={`${selectedItem == 4 ? "text-light-blue" : ""} item`}
-                role="button"
-                tabIndex={0}
-                onClick={() => setSelectedItem(4)}
-              >
-                <NewIcon
-                  className={
-                    selectedItem == 4 ? "fill-light-blue" : "fill-white"
-                  }
-                />
-                Newest
-              </span>
-            </div>
           </div>
           <div className="explorer-identifier mt-8 flex flex-wrap gap-2 lg:gap-4">
-            <Button radius="full">#Kimchi-Challenge</Button>
-            <Button radius="full">#AvengerDAO</Button>
-            <Button radius="full">#abstract</Button>
-            <Button radius="full">#illustration</Button>
-            <Button radius="full">#film</Button>
-            <Button radius="full">#technology</Button>
-            <Button radius="full">#sketch</Button>
-            <Button radius="full">#pixel</Button>
-            <Button radius="full">#cartoon</Button>
-            <Button radius="full">#anime</Button>
+            <Button radius="full">#Something</Button>
+            <Button radius="full">#Something</Button>
+            <Button radius="full">#Something</Button>
+            <Button radius="full">#Something</Button>
+            <Button radius="full">#Something</Button>
+            <Button radius="full">#Something</Button>
           </div>
 
           <div className="mt-16 text-center">
-            <h2 className="">Latest NFTs</h2>
-            <p className="mb-10">The latest NFTs by NYW artists and users</p>
+            <h2 className="">Latest Polices</h2>
+            <p className="mb-10">The latest Polices created by admin</p>
             <ImageContainer cols={cols}>
               {listedNFTs.map((nft, index) => {
                 return (

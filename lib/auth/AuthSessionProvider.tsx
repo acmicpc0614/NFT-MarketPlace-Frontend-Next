@@ -13,9 +13,11 @@ type Props = {
 
 const AuthSessionProvider: FC<Props> = ({ session, children }) => {
   return (
+    <>
     <SessionProvider session={session} refetchOnWindowFocus={false}>
       {children}
     </SessionProvider>
+    </>
   );
 };
 

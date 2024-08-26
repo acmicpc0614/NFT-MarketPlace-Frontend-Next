@@ -145,14 +145,7 @@ const CreateNFT = () => {
   };
 
   return (
-    <div>
-      <div className="relative">
-        <img
-          className="w-full max-h-[600px]"
-          src="/page-create.png"
-          alt="Not Found"
-        />
-      </div>
+    <div className=" pt-32">
       <div className="container" id="detailed-container">
         <Breadcrumbs
           separator=">>"
