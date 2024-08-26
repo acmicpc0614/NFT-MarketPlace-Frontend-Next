@@ -11,9 +11,6 @@ import {
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 
-import ImageContainer from "@/lib/components/container/ImageCotainer";
-
-import useColNums from "@/lib/hooks/useColNums";
 import NFTDetails from "@/app/(main)/explore/NFTDetails.json";
 
 const Explorer = () => {
@@ -23,7 +20,6 @@ const Explorer = () => {
 
   const router = useRouter();
 
-  const cols = useColNums();
 
 
   return (
@@ -83,9 +79,7 @@ const Explorer = () => {
           <div className="mt-16 text-center">
             <h2 className="">Latest Polices</h2>
             <p className="mb-10">The latest Polices created by admin</p>
-            <ImageContainer cols={cols}>
-              {listedNFTs.map((nft, index) => <div>{nft}</div>)}
-            </ImageContainer>
+
           </div>
 
         </div>

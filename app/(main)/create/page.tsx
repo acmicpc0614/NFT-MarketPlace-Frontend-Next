@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-// import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-// import { useAccount } from "wagmi";
+
 import {
   Breadcrumbs,
   BreadcrumbItem,
@@ -17,18 +16,8 @@ import PrimaryButton from "@/lib/components/button/PrimaryButton";
 
 import useToast from "@/lib/hooks/toast/useToast";
 
-
-enum WorkingTabs {
-  Image = "image",
-  Video = "video",
-  Music = "music",
-}
-
 const CreateNFT = () => {
   const router = useRouter();
-  // const { data } = useSession();
-  // const { isConnected, address } = useAccount();
-
   const customToast = useToast();
 
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -48,7 +37,7 @@ const CreateNFT = () => {
           className="my-6"
         >
           <BreadcrumbItem>Home</BreadcrumbItem>
-          <BreadcrumbItem>Create NFTs</BreadcrumbItem>
+          <BreadcrumbItem>Create Policies</BreadcrumbItem>
         </Breadcrumbs>
         <div className="flex flex-col lg:flex-row gap-3 pb-6">
           <div className="w-full p-4 bg-white/5 rounded-md">

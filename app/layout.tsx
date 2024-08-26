@@ -1,24 +1,11 @@
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
-import dynamic from "next/dynamic";
 import { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
-import { getServerSession } from "next-auth";
 import clsx from "clsx";
 import { ToastContainer } from "react-toastify";
 import { Providers } from "./providers";
 import { siteConfig } from "@/lib/config/site";
 import { fontSans } from "@/lib/config/fonts";
-
-
-import AosProvider from "@/lib/providers/aosProvider";
-const RainbowProvider = dynamic(() => import("@/lib/providers/rainbowProvider"), {
-  ssr: false,
-});
-const ActiveWeb3Provider = dynamic(() => import("@/lib/providers/web3Provider"), {
-  ssr: false,
-});
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -44,7 +31,6 @@ export default async function RootLayout({
 }) {
 
   return (
-    <AosProvider>
     <html suppressHydrationWarning lang="en">
       <head />
       <body
@@ -54,15 +40,11 @@ export default async function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-        <RainbowProvider>
-        <ActiveWeb3Provider>
-                  {children}
-                  <ToastContainer />
-                  </ActiveWeb3Provider>
-                  </RainbowProvider>
+          {children}
+          <ToastContainer />
         </Providers>
       </body>
     </html>
-    </AosProvider>
+
   );
 }

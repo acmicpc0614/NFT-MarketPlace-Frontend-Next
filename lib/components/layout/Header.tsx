@@ -82,8 +82,8 @@ export default function Header() {
               Create POLICY
             </Link>
           </NavbarItem>
-          <NavbarItem isActive={path.includes("event") ? true : false}>
-            <Link className="flex gap-2 text-inherit" href="/event">
+          <NavbarItem isActive={path.includes("eventpage") ? true : false}>
+            <Link className="flex gap-2 text-inherit" href="/eventpage">
               EVENT
             </Link>
           </NavbarItem>
