@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Input,
-  Image,
+
   Switch,
   Breadcrumbs,
   BreadcrumbItem,
@@ -11,42 +11,20 @@ import {
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 
-import MultiCarousel from "@/lib/components/carousel/MultiCarousel";
-import NFTShowcaseCard from "@/lib/components/card/NFTShowcaseCard";
-import PrimaryButton from "@/lib/components/button/PrimaryButton";
 import ImageContainer from "@/lib/components/container/ImageCotainer";
-import { fetchServer } from "@/lib/net/fetch/fetch";
+
 import useColNums from "@/lib/hooks/useColNums";
-
-import FeaturedIcon from "@/public/icon/featured.svg";
-import PFPIcon from "@/public/icon/pfp.svg";
-import VideoIcon from "@/public/icon/movie.svg";
-import MusicIcon from "@/public/icon/music.svg";
-import NewIcon from "@/public/icon/new.svg";
-
 import NFTDetails from "@/app/(main)/explore/NFTDetails.json";
-
-import type { CommentType } from "@/lib/components/card/NFTViewCard";
-import type { NFTData } from "@/app/(main)/profile/tabs/TabNFT";
 
 const Explorer = () => {
   const [selectedItem, setSelectedItem] = useState(0);
   const [selectedNFT, setSelectedNFT] = useState(-1);
-  const [listedNFTs, setListedNFTs] = useState<NFTData[]>([]);
+  const [listedNFTs, setListedNFTs] = useState([]);
 
   const router = useRouter();
 
   const cols = useColNums();
 
-  useEffect(() => {
-    const fetchListedNFTs = async () => {
-      const res = await fetchServer("/nft/listed");
-
-      setListedNFTs(res);
-    };
-
-    fetchListedNFTs();
-  }, []);
 
   return (
     <div>
@@ -106,15 +84,7 @@ const Explorer = () => {
             <h2 className="">Latest Polices</h2>
             <p className="mb-10">The latest Polices created by admin</p>
             <ImageContainer cols={cols}>
-              {listedNFTs.map((nft, index) => {
-                return (
-                  <NFTShowcaseCard
-                    key={index}
-                    asset={`${process.env.NEXT_PUBLIC_API_BASE_URL}${nft.asset_url}`}
-                    hash={nft.asset_hash}
-                  />
-                );
-              })}
+              {listedNFTs.map((nft, index) => <div>{nft}</div>)}
             </ImageContainer>
           </div>
 

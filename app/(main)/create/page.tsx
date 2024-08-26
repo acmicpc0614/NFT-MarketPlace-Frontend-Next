@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+// import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 import {
   Breadcrumbs,
   BreadcrumbItem,
@@ -22,9 +22,8 @@ import { VideoIcon } from "./components/icons/VideoIcon";
 import { MusicIcon } from "./components/icons/MusicIcon";
 import PrimaryButton from "@/lib/components/button/PrimaryButton";
 
-import { postServer } from "@/lib/net/fetch/fetch";
 import useToast from "@/lib/hooks/toast/useToast";
-import useNFTMint from "@/lib/web3/hook/nft/useNFTMint";
+
 
 enum WorkingTabs {
   Image = "image",
@@ -34,11 +33,10 @@ enum WorkingTabs {
 
 const CreateNFT = () => {
   const router = useRouter();
-  const { data } = useSession();
-  const { isConnected, address } = useAccount();
+  // const { data } = useSession();
+  // const { isConnected, address } = useAccount();
 
   const customToast = useToast();
-  const { isPendingMint, isMintLoading, isMintSuccess, mintNFT } = useNFTMint();
 
   const [activeTab, setActiveTab] = useState<WorkingTabs>(WorkingTabs.Image);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -60,89 +58,7 @@ const CreateNFT = () => {
     { width: 576, height: 1024 },
   ];
 
-  useEffect(() => {
-    if (data?.provider !== "siwe" || (isConnected === false && !address)) {
-      signOut({
-        redirect: false,
-      });
-      router.push("/signin");
-    }
-    const divElement = document.getElementById("detailed-container");
-    if (divElement) {
-      window.scrollTo({
-        top: divElement.getBoundingClientRect().top + window.pageYOffset - 120,
-        behavior: "smooth", // Optional: Add smooth scrolling effect
-      });
-    }
-  }, []);
 
-  useEffect(() => {
-    if (isMintSuccess) {
-      customToast("success", "Successfully minted your NFT");
-    }
-  }, [isMintSuccess]);
-
-  const GenerateImage = async () => {
-    setIsGenerating(true);
-    try {
-      const response = await postServer("/artwork/generate", {
-        prompt: inputText,
-        model_id: model_id,
-        width: imageSizeArr[imageSize - 1].width,
-        height: imageSizeArr[imageSize - 1].height,
-      });
-
-      setGenImg(response.generated_images);
-      setIsGenerating(false);
-    } catch (err) {
-      setIsGenerating(false);
-      console.log(err);
-    }
-  };
-
-  const mintNow = async () => {
-    if (genImg[selectedImage] === "") {
-      customToast("failed", "Select image");
-      return;
-    }
-    if (nftName === "") {
-      customToast("failed", "Insert NFT name");
-      return;
-    }
-
-    try {
-      const res = await postServer("/nft/mint", {
-        address: address as string,
-        name: nftName,
-        url: genImg[selectedImage],
-        prompt: inputText,
-      });
-
-      if (res.success === true) {
-        const { nft_name, metadataURL, assetURL } = res;
-
-        console.log(metadataURL);
-        try {
-          const tx = await mintNFT(metadataURL, royalty);
-          setTimeout(async () => {
-            if (tx) {
-              const response = await postServer("/nft/save", {
-                tx,
-                nft_name,
-                assetURL,
-                prompt: inputText,
-              });
-            }
-          }, 30000);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      customToast("failed", "Failed to mint NFT");
-    }
-  };
 
   return (
     <div className=" pt-32">
@@ -220,9 +136,6 @@ const CreateNFT = () => {
                 <div className="flex justify-center">
                   <PrimaryButton
                     text="Create Now"
-                    onClick={() => {
-                      GenerateImage();
-                    }}
                     isLoading={isGenerating}
                   />
                 </div>
@@ -273,47 +186,6 @@ const CreateNFT = () => {
                         })}
                     </div>
                     <Spacer y={6} />
-                    <div className="flex gap-3">
-                      <Input
-                        type="number"
-                        min={0}
-                        placeholder="Royalty"
-                        value={royalty.toString()}
-                        onChange={(e) => setRoyalty(parseInt(e.target.value))}
-                        classNames={{
-                          inputWrapper:
-                            "w-full h-full bg-white/10 py-2 rounded-md",
-                          input: "text-lg",
-                          base: "max-w-[200px]",
-                        }}
-                        startContent={
-                          <div className="pointer-events-none flex items-center">
-                            <span className="text-default-400 text-small">
-                              %
-                            </span>
-                          </div>
-                        }
-                      />
-                      <Input
-                        aria-label="Search"
-                        classNames={{
-                          inputWrapper: "w-full h-full bg-white/10 py-2",
-                          input: "text-lg",
-                        }}
-                        value={nftName}
-                        onChange={(e) => setNftName(e.target.value)}
-                        labelPlacement="outside"
-                        placeholder="Input your NFT name"
-                        radius="sm"
-                        endContent={
-                          <PrimaryButton
-                            onClick={mintNow}
-                            text="Mint Now"
-                            isLoading={isPendingMint || isMintLoading}
-                          />
-                        }
-                      />
-                    </div>
                   </div>
                 )}
               </div>

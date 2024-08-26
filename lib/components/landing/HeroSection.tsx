@@ -14,7 +14,7 @@ const HeroStatus = ({
   text: string;
 }) => {
   return (
-    <div className="flex items-center hover:cursor-pointer">
+  <div className="flex items-center hover:cursor-pointer transition-transform duration-100">
       <img className="w-10 h-10 lg:w-20 lg:h-20" src={icon} alt="Not Found" />
       <div className="ml-3">
         <p className="text-[18px] lg:text-[32px] font-semibold leading-[100%]">

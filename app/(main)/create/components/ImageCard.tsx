@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import { useAccount } from "wagmi";
 import { Button, Card, Image, Tooltip } from "@nextui-org/react";
 import { twMerge } from "tailwind-merge";
 import { Icon } from "@iconify/react";
@@ -20,7 +19,7 @@ type CardProps = {
 
 export default function ImageCard(props: CardProps) {
   const { id, imgSrc, selectedImage, setSelectedImage, prompt } = props;
-  const { address } = useAccount();
+  const  address  = "0x12345678";
 
   const { isSaving, isSaved, setIsSaved, saveImage } = useSaveImage();
   const customToast = useToast();

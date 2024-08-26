@@ -4,14 +4,11 @@ import { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { getServerSession } from "next-auth";
 import clsx from "clsx";
-import { cookieToInitialState } from "wagmi";
+
 import { ToastContainer } from "react-toastify";
 
 import { Providers } from "./providers";
-import Web3ModalProvider from "@/lib/web3/WagmiProvider";
-import AuthSessionProvider from "@/lib/auth/AuthSessionProvider";
-import { wagmiConfig } from "@/lib/web3/WagmiConfig";
-import authConfig from "@/lib/auth/authConfig";
+
 
 import { siteConfig } from "@/lib/config/site";
 import { fontSans } from "@/lib/config/fonts";
@@ -39,11 +36,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const initialState = cookieToInitialState(
-    wagmiConfig,
-    headers().get("cookie")
-  );
-  const session = await getServerSession(authConfig);
 
   return (
     <html suppressHydrationWarning lang="en">
@@ -55,12 +47,8 @@ export default async function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <Web3ModalProvider initialState={initialState}>
-            <AuthSessionProvider session={session}>
-              {children}
-              <ToastContainer />
-            </AuthSessionProvider>
-          </Web3ModalProvider>
+          {children}
+          <ToastContainer />
         </Providers>
       </body>
     </html>

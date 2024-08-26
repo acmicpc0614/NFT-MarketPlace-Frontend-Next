@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useMemo } from "react";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { Image } from "@nextui-org/react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -21,14 +21,14 @@ import {
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 
-import ToggleProfile from "@/lib/components/profile/ToggleProfile";
+// import ToggleProfile from "@/lib/components/profile/ToggleProfile";
 import PrimaryButton from "@/lib/components/button/PrimaryButton";
-import { useAccount } from "wagmi";
 
 export default function Header() {
   const router = useRouter();
-  const { data: session, status } = useSession();
-  const { address } = useAccount();
+  // const { data: session, status } = useSession();
+  // const { address } = useAccount();
+  let address = undefined;
   const path = usePathname();
 
   const onLogo = useCallback(() => {
@@ -88,7 +88,7 @@ export default function Header() {
             </Link>
           </NavbarItem>
         </NavbarContent>
-        {session && address ? (
+        {address ? (
           <NavbarContent
             className="ml-auto flex justify-center items-center h-12 max-w-fit gap-0 rounded-full p-0 px-2 bg-white/30 dark:bg-white/30"
             justify="end"
@@ -135,7 +135,8 @@ export default function Header() {
             </NavbarItem>
             {/* User Menu */}
             <NavbarItem className="flex items-center">
-              <ToggleProfile />
+              {/* <ToggleProfile /> */}
+              ToggleProfile
             </NavbarItem>
           </NavbarContent>
         ) : (
@@ -165,7 +166,7 @@ export default function Header() {
             </Link>
           </NavbarMenuItem>
           <NavbarMenuItem>
-            <Link className="w-full" color="foreground" href="/event">
+            <Link className="w-full" color="foreground" href="/eventpage">
               EVENT
             </Link>
           </NavbarMenuItem>

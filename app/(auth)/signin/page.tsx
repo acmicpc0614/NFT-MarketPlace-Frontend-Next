@@ -2,8 +2,8 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAccount } from "wagmi";
-import { signIn, useSession } from "next-auth/react";
+// import { useAccount } from "wagmi";
+// import { signIn, useSession } from "next-auth/react";
 import {
   Button,
   Input,
@@ -24,18 +24,18 @@ type Props = {
 };
 
 export default function Component() {
-  const { address, isConnected } = useAccount();
-  const { data: session } = useSession();
+  // const { address, isConnected } = useAccount();
+  // const { data: session } = useSession();
   const router = useRouter();
 
   const [isVisible, setIsVisible] = React.useState(false);
 
-  useEffect(() => {
-    if (session && address && isConnected) {
-      router.push("/explore");
-      return;
-    }
-  }, [address, isConnected]);
+  // useEffect(() => {
+  //   if (session && address && isConnected) {
+  //     router.push("/explore");
+  //     return;
+  //   }
+  // }, [address, isConnected]);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -121,12 +121,12 @@ export default function Component() {
             <Button
               startContent={<Icon icon="flat-color-icons:google" width={24} />}
               variant="bordered"
-              onClick={() => {
-                console.log("google sign in");
-                signIn("google", {
-                  callbackUrl: "http://localhost:3000/explore",
-                });
-              }}
+              // onClick={() => {
+              //   console.log("google sign in");
+              //   signIn("google", {
+              //     callbackUrl: "http://localhost:3000/explore",
+              //   });
+              // }}
             >
               Continue with Google
             </Button>

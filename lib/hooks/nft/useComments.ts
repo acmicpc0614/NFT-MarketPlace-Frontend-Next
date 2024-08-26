@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { postServer } from "@/lib/net/fetch/fetch";
+
 
 export default function useComments() {
   const [isCommentSuccess, setCommentSuccess] = useState(false);
@@ -11,12 +11,7 @@ export default function useComments() {
     contents: string
   ) => {
     try {
-      const res = await postServer(`/nft/${id}/comments`, {
-        creator,
-        contents,
-      });
-
-      if (res.success == true) setCommentSuccess(true);
+ setCommentSuccess(true);
     } catch (err) {
       console.log(err);
     }

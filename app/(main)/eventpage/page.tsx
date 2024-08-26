@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Campaign() {
+export default function Earn() {
   const router = useRouter();
   useEffect(() => {
     router.push("/soon");
