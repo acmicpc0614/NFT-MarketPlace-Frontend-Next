@@ -6,7 +6,7 @@ interface Policy {
 
 const PolicyItem:React.FC<Policy> = ({name, cost, description}) => {
   return <>
-    <div className="flex flex-row justify-between bg-dark-blue p-5 rounded-md hover:cursor-pointer">
+    <div className="flex flex-row justify-between bg-dark-blue p-5 rounded-md hover:cursor-pointer select-none">
       <div className="flex flex-row gap-5">
         <p>{name}</p>
         <p>{cost}</p>
