@@ -23,11 +23,10 @@ import { Icon } from "@iconify/react";
 
 // import ToggleProfile from "@/lib/components/profile/ToggleProfile";
 import PrimaryButton from "@/lib/components/button/PrimaryButton";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Header() {
   const router = useRouter();
-  // const { data: session, status } = useSession();
-  // const { address } = useAccount();
   let address = undefined;
   const path = usePathname();
 
@@ -140,12 +139,13 @@ export default function Header() {
             </NavbarItem>
           </NavbarContent>
         ) : (
-          <PrimaryButton
-            text={path === "/signin" ? "Get Started" : "Connect Wallet"}
-            className="w-32 md:w-40"
-            onClick={() => router.push("/signin")}
-            varient="secondary"
-          />
+          <ConnectButton/>
+          // <PrimaryButton
+          //   text={path === "/signin" ? "Get Started" : "Connect Wallet"}
+          //   className="w-32 md:w-40"
+          //   onClick={() => router.push("/signin")}
+          //   varient="secondary"
+          // />
         )}
 
         {/* Mobile Menu */}
