@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 
 import PrimaryButton from "@/lib/components/button/PrimaryButton";
 
-
 const HeroStatus = ({
   icon,
   state,

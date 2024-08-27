@@ -20,7 +20,7 @@ import {
   phantomWallet,
   okxWallet,
 } from "@rainbow-me/rainbowkit/wallets";
-import { base, sepolia } from "wagmi/chains";
+import { base, baseSepolia, sepolia } from "wagmi/chains";
 import  ActiveWeb3Provider from "@/lib/hooks/Web3Context";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -40,6 +40,7 @@ const config = getDefaultConfig({
     },
   ],
   chains: [
+    baseSepolia,
     base,
     sepolia,
     // ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
@@ -52,18 +53,18 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();
 
   return (
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider>
-              <ActiveWeb3Provider>
-    <NextUIProvider navigate={router.push}>
-      <NextThemesProvider {...themeProps}>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider>
+          <ActiveWeb3Provider>
+            <NextUIProvider navigate={router.push}>
+              <NextThemesProvider {...themeProps}>
                 {children}
-      </NextThemesProvider>
-    </NextUIProvider>
-              </ActiveWeb3Provider>
-            </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
+              </NextThemesProvider>
+            </NextUIProvider>
+          </ActiveWeb3Provider>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }

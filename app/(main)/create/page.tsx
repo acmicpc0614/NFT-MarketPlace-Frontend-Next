@@ -5,26 +5,74 @@ import { useRouter } from "next/navigation";
 import {
   Breadcrumbs,
   BreadcrumbItem,
-  Spinner,
-  Spacer,
+  Input,
 
 } from "@nextui-org/react";
 
-import ImageCard from "./components/ImageCard";
+import {POLICY_ABI} from "@/lib/constants/policyABI";
+import {USDC_ABI} from "@/lib/constants/usdcABI";
+import {POLICY_ADDRESS, USDC_ADDRESS} from "@/lib/constants/address"
 
-import PrimaryButton from "@/lib/components/button/PrimaryButton";
-
+import useWeb3 from "@/lib/hooks/useWeb3";
 import useToast from "@/lib/hooks/toast/useToast";
+import PrimaryButton from "@/lib/components/button/PrimaryButton";
+import { Contract, ethers } from "ethers";
 
 const CreateNFT = () => {
+
   const router = useRouter();
   const customToast = useToast();
 
-  const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [genImg, setGenImg] = useState<any[]>([]);
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [inputText, setInputText] = useState("");
+  const {
+    address,
+    isConnected,
+    isConnecting,
+    isReconnecting,
+    connector,
+    chainId,
+    signer,
+  } = useWeb3();
 
+  const [contractFactory, setContractFactory] = useState<Contract | undefined>(
+    undefined
+  );
+  const [USDC_contract, setUSDC_contract] = useState<Contract | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (address && chainId && signer) {
+      const _contractFactory = new ethers.Contract(
+        POLICY_ADDRESS,
+        POLICY_ABI,
+        signer
+      );
+      setContractFactory(_contractFactory);// policy contract
+
+      const _contractMarketplace = new ethers.Contract(
+        USDC_ADDRESS,
+        USDC_ABI,
+        signer
+      );
+      setUSDC_contract(_contractMarketplace); // usdc contract
+    }
+  }, [address, chainId, signer]);
+
+  const handlePolicyAdd = async () => {
+    console.log("handle add policy called ========>");
+    try {
+      if(!contractFactory) throw "no contract factory";
+      const tx1 = await contractFactory.addPolicy(
+        "first Policy", 100, "This is description for first policy."
+      );
+      await tx1.wait();
+      customToast("success", "Successfully added policy.");
+    } catch(err:any) {
+      if(String(err.code) === "ACTION_REHECTED")
+        customToast("failed", "Rejected transaction.");
+      else customToast("failed", "Unknown error has occured.");
+    }
+  }
 
   return (
     <div className=" pt-32">
@@ -41,51 +89,38 @@ const CreateNFT = () => {
         </Breadcrumbs>
         <div className="flex flex-col lg:flex-row gap-3 pb-6">
           <div className="w-full p-4 bg-white/5 rounded-md">
-            <div className="lg:h-[calc(100vh-220px)]  ">
+            <div className="lg:h-[calc(100vh-400px)]  ">
               <div className="w-full h-full flex justify-center items-center text-center">
-                {isGenerating && (
-                  <Spinner
-                    label="Loading..."
-                    size="lg"
-                    style={{ color: "#15BFFD", background: "transparent" }}
+                <div className="flex flex-col gap-10 w-[80%] max-w-[1000px]">
+                  <Input
+                    label="Policy name"
+                    name="name"
+                    placeholder="Enter your Policy name"
+                    type="text"
+                    variant="underlined"
                   />
-                )}
-                {!isGenerating && genImg.length !== 3 && (
-                  <div className="max-w-[500px] flex justify-center items-center flex-col text-center">
-                    <img src="/generate.svg" alt="Not Found" />
-                    <p>Generated images will appear here</p>
-                    <p className="font-small">
-                      Looks like you haven't created anything yet! Click the
-                      button below to copy a sample prompt and then click
-                      Generate.
-                    </p>
+                  <Input
+                    label="Policy Cost"
+                    name="cost"
+                    placeholder="100"
+                    type="number"
+                    variant="underlined"
+                  />                    
+                  <Input
+                    label="Policy Description"
+                    name="description"
+                    placeholder="Enter your Policy description"
+                    type="text"
+                    variant="underlined"
+                  />
+                  <div className="w-full flex justify-center">
                     <PrimaryButton
-                      className="min-w-[300px] mt-8"
-                      text="Use sample prompt"
+                      text="Add Policy"
+                      className="w-[400px]"
+                      onClick={handlePolicyAdd}
                     />
                   </div>
-                )}
-                {!isGenerating && genImg.length === 3 && (
-                  <div className="w-full">
-                    <h3>Select Image and Mint Your NFT</h3>
-                    <div className="mt-10 grid lg:grid-cols-3 gap-3">
-                      {genImg.length === 3 &&
-                        genImg.map((item, id) => {
-                          return (
-                            <ImageCard
-                              key={id}
-                              id={id}
-                              selectedImage={selectedImage}
-                              setSelectedImage={setSelectedImage}
-                              imgSrc={item}
-                              prompt={inputText}
-                            />
-                          );
-                        })}
-                    </div>
-                    <Spacer y={6} />
-                  </div>
-                )}
+                </div>
               </div>
             </div>
           </div>
