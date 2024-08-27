@@ -39,6 +39,7 @@ const CreateNFT = () => {
   const [USDC_contract, setUSDC_contract] = useState<Contract | undefined>(
     undefined
   );
+  const [userAddress, setUserAddress] = useState<any>(undefined);
 
   useEffect(() => {
     if (address && chainId && signer) {
@@ -55,18 +56,35 @@ const CreateNFT = () => {
         signer
       );
       setUSDC_contract(_contractMarketplace); // usdc contract
+      setUserAddress(signer._address);
     }
   }, [address, chainId, signer]);
 
-  const handlePolicyAdd = async () => {
-    console.log("handle add policy called ========>");
+  const isAdmin = async () => {
+    if(userAddress === undefined) return false;
     try {
       if(!contractFactory) throw "no contract factory";
-      const tx1 = await contractFactory.addPolicy(
-        "first Policy", 100, "This is description for first policy."
-      );
-      await tx1.wait();
-      customToast("success", "Successfully added policy.");
+      const isadmin = async () => contractFactory.isAdmin(userAddress);
+      return isadmin;
+    } catch (error:any) {
+      return false;
+    }
+  }
+
+  const handlePolicyAdd = async () => {
+    const isAdminFlag = await isAdmin();
+    try {
+      if(isAdminFlag) {
+        if(!contractFactory) throw "no contract factory";
+        const tx1 = await contractFactory.addPolicy(
+          "first Policy", 100, "This is description for first policy."
+        );
+        await tx1.wait();
+        customToast("success", "Successfully added policy.");
+      }
+      else  {
+        customToast("failed", "Only admin can add policy.");
+      }
     } catch(err:any) {
       if(String(err.code) === "ACTION_REHECTED")
         customToast("failed", "Rejected transaction.");

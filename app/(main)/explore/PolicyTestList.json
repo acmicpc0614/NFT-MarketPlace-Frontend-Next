@@ -1,0 +1,55 @@
+[
+  {
+    "name": "POLICY 1",
+    "cost": 100,
+    "description": "This is description for POLICY 1"
+  },
+  {
+    "name": "POLICY 2",
+    "cost": 200,
+    "description": "This is description for POLICY 2"
+  },  {
+    "name": "POLICY 3",
+    "cost": 300,
+    "description": "This is description for POLICY 3"
+  },  {
+    "name": "POLICY 4",
+    "cost": 400,
+    "description": "This is description for POLICY 4"
+  },  {
+    "name": "POLICY 1",
+    "cost": 100,
+    "description": "This is description for POLICY 1"
+  },
+  {
+    "name": "POLICY 2",
+    "cost": 200,
+    "description": "This is description for POLICY 2"
+  },  {
+    "name": "POLICY 3",
+    "cost": 300,
+    "description": "This is description for POLICY 3"
+  },  {
+    "name": "POLICY 4",
+    "cost": 400,
+    "description": "This is description for POLICY 4"
+  },  {
+    "name": "POLICY 1",
+    "cost": 100,
+    "description": "This is description for POLICY 1"
+  },
+  {
+    "name": "POLICY 2",
+    "cost": 200,
+    "description": "This is description for POLICY 2"
+  },  {
+    "name": "POLICY 3",
+    "cost": 300,
+    "description": "This is description for POLICY 3"
+  },  {
+    "name": "POLICY 4",
+    "cost": 400,
+    "description": "This is description for POLICY 4"
+  }
+
+]
